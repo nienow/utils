@@ -1,11 +1,18 @@
 html, body, #root {
   margin: 0;
-  font-family: Open Sans;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
   height: 100%;
-  align-items: center;
+  font-size: 14px;
+  /*align-items: center;*/
 }
 
 #root {
   display: flex;
-  background-color: cornflowerblue;
+  background-color: rgb(48, 48, 48);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+a {
+  color: white !important;
 }
