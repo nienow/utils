@@ -9,10 +9,4 @@ html, body, #root {
 
 #root {
   display: flex;
-  background-color: rgb(48, 48, 48);
-  color: rgba(255, 255, 255, 0.75);
-}
-
-a {
-  color: white !important;
 }

@@ -1,7 +1,8 @@
 import React, {FormEvent, useState} from 'react';
 import './Locale.css';
 import {COMMON_LOCALES} from "./locales";
-import {COMMON_CURRENCIES} from "./currencies";
+import SelectBox from '../../shared/SelectBox';
+import { COMMON_CURRENCIES } from './currencies';
 
 
 function Locale() {
@@ -19,17 +20,7 @@ function Locale() {
     setLocale(target.value);
   }
 
-  function handleLocaleSelectChange(event: FormEvent) {
-    const target: HTMLInputElement = event.target as HTMLInputElement;
-    setLocale(target.value);
-  }
-
   function handleCurrencyChange(event: FormEvent) {
-    const target: HTMLInputElement = event.target as HTMLInputElement;
-    setCurrency(target.value);
-  }
-
-  function handleCurrencySelectChange(event: FormEvent) {
     const target: HTMLInputElement = event.target as HTMLInputElement;
     setCurrency(target.value);
   }
@@ -50,59 +41,53 @@ function Locale() {
     }
   }
 
-  const renderOption = (option: string) => (<option>{option}</option>);
-
   return (
-    <div className="util">
-    <div className="card">
-      <div className="title">Number Format Checker</div>
-      <table>
-        <tr>
-          <td>Common Locales</td>
-          <td>
-            <select value={locale} onChange={handleLocaleSelectChange}>
-              {
-                COMMON_LOCALES.map(renderOption)
-              }
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Custom Locale</td>
-          <td><input type="text" value={locale} onChange={handleLocaleChange}/></td>
-        </tr>
-        <tr>
-          <td>Number to format</td>
-          <td><input type="number" value={number} onChange={handleNumberChange}/></td>
-        </tr>
-        <tr className="result"><td>Format Result</td><td>{formatNumber()}</td></tr>
-        <tr>
-          <td>Common Currencies</td>
-          <td>
-            <select value={currency} onChange={handleCurrencySelectChange}>
-              {
-                COMMON_CURRENCIES.map(renderOption)
-              }
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td>Custom Currency</td>
-          <td><input type="text" value={currency} onChange={handleCurrencyChange}/></td>
-        </tr>
-        <tr className="result"><td>Currency Result</td><td>{formatCurrency()}</td></tr>
-      </table>
-    </div>
-    <div className="card">
-      <div className="title">How It Works</div>
-      <div>Uses the Intl.NumberFormat API (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat">link</a>)</div>
-      <br/>
-      <div>Format Number:</div>
-      <code>Intl.NumberFormat('{locale}').format('{number}')</code>
-      <div>Format Currency:</div>
-      <code>Intl.NumberFormat('{locale}', &#123;style: 'currency', currency: '{currency}'&#125;).format('{number}')</code>
-    </div>
-    </div>
+      <div className="util">
+        <div className="card">
+          <div className="title">Format Number</div>
+          <div className="row">
+            <div className="col field"><SelectBox label="Common Locales" value={locale} onChange={setLocale} options={COMMON_LOCALES}></SelectBox></div>
+            <div className="col field">
+              <label>Custom Locale</label>
+              <input type="text" value={locale} onChange={handleLocaleChange}/>
+            </div>
+            <div className="col field">
+              <label>Number to format</label>
+              <input type="number" value={number} onChange={handleNumberChange}/>
+            </div>
+          </div>
+          <label>Result</label>
+          <div className="result">{formatNumber()}</div>
+          <label>Code</label>
+          <code>Intl.NumberFormat('{locale}').format('{number}');</code>
+
+          <div className="title">Format Currency</div>
+          <div className="row">
+            <div className="col field"><SelectBox label="Common Currencies" value={currency} onChange={setCurrency} options={COMMON_CURRENCIES}></SelectBox></div>
+            <div className="col field">
+              <label>Custom Currency</label>
+              <input type="text" value={currency} onChange={handleCurrencyChange}/>
+            </div>
+          </div>
+          <label>Result</label>
+          <div className="result">{formatCurrency()}</div>
+          <label>Code</label>
+          <code>Intl.NumberFormat('{locale}', &#123;style: 'currency', currency: '{currency}'&#125;).format('{number}');</code>
+          <div className="title">More Information</div>
+          <p>
+            Uses the Intl.NumberFormat API
+          </p>
+          <p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat</a>
+          </p>
+
+          {/*<div className="title">Code</div>*/}
+          {/*<code>*/}
+          {/*  Intl.NumberFormat('{locale}').format('{number}');*/}
+          {/*  Intl.NumberFormat('{locale}', &#123;style: 'currency', currency: '{currency}'&#125;).format('{number}');*/}
+          {/*</code>*/}
+        </div>
+      </div>
   );
 }
 
