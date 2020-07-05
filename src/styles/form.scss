@@ -1,0 +1,24 @@
+input, select {
+  padding: 5px;
+  outline: none;
+  border: none;
+  width: 200px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.field {
+  padding: 10px;
+}
+
+.field:first-child {
+  padding-left: 0;
+}
+
+.field:last-child {
+  padding-right: 0;
+}

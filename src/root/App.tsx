@@ -21,7 +21,6 @@ function App() {
 		const target: HTMLInputElement = event.target as HTMLInputElement;
 		setTheme(target.value);
 	}
-
 	function getAppClass() {
 		return 'app theme-' + theme;
 	}

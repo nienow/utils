@@ -1,28 +1,21 @@
 import React, { FormEvent } from 'react';
 
-interface SelectBoxProps {
+interface TextFieldProps {
 	label: string;
 	value: string;
-	options: string[];
 	onChange: (value: string) => void;
 }
 
-function SelectBox(props: SelectBoxProps) {
+function TextField(props: TextFieldProps) {
 	function handleValueChange(event: FormEvent) {
 		const target: HTMLInputElement = event.target as HTMLInputElement;
 		props.onChange(target.value);
 	}
 
-	const renderOption = (option: string) => (<option>{option}</option>);
-
 	return <div className="field">
 		<label>{props.label}</label>
-		<select value={props.value} onChange={handleValueChange}>
-			{
-				props.options.map(renderOption)
-			}
-		</select>
+		<input type="text" value={props.value} onChange={handleValueChange}/>
 	</div>;
 }
 
-export default SelectBox;
+export default TextField;

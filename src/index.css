@@ -1,10 +1,12 @@
-html, body, #root {
-  margin: 0;
+html {
   font-family: 'Quicksand', sans-serif;
   font-weight: 400;
-  height: 100%;
   font-size: 14px;
-  /*align-items: center;*/
+}
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
 }
 
 #root {

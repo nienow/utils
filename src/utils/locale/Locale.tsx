@@ -3,27 +3,18 @@ import './Locale.css';
 import {COMMON_LOCALES} from "./locales";
 import SelectBox from '../../shared/SelectBox';
 import { COMMON_CURRENCIES } from './currencies';
+import TextField from "../../shared/TextField";
+import CodeSample from "../../shared/CodeSample";
+import NumberField from "../../shared/NumberField";
+import Output from "../../shared/Output";
 
 
 function Locale() {
   const [number, setNumber] = useState(1234.56);
   const [locale, setLocale] = useState('en-US');
   const [currency, setCurrency] = useState('USD');
-
-  function handleNumberChange(event: FormEvent) {
-    const target: any = event.target;
-    setNumber(target.value);
-  }
-
-  function handleLocaleChange(event: FormEvent) {
-    const target: HTMLInputElement = event.target as HTMLInputElement;
-    setLocale(target.value);
-  }
-
-  function handleCurrencyChange(event: FormEvent) {
-    const target: HTMLInputElement = event.target as HTMLInputElement;
-    setCurrency(target.value);
-  }
+  const [reverseText, setReverseText] = useState('1,234.56');
+  const [reverseLocales, setReverseLocales] = useState('');
 
   function formatNumber() {
     try {
@@ -41,52 +32,49 @@ function Locale() {
     }
   }
 
+  function reverseLocale() {
+    const matches = COMMON_LOCALES.filter((locale: string) => {
+      try {
+        const result = new Intl.NumberFormat(locale).format(number);
+        return result === reverseText;
+      } catch {}
+    });
+    setReverseLocales(matches.join(', '));
+  }
+
   return (
-      <div className="util">
-        <div className="card">
-          <div className="title">Format Number</div>
-          <div className="row">
-            <div className="col field"><SelectBox label="Common Locales" value={locale} onChange={setLocale} options={COMMON_LOCALES}></SelectBox></div>
-            <div className="col field">
-              <label>Custom Locale</label>
-              <input type="text" value={locale} onChange={handleLocaleChange}/>
-            </div>
-            <div className="col field">
-              <label>Number to format</label>
-              <input type="number" value={number} onChange={handleNumberChange}/>
-            </div>
-          </div>
-          <label>Result</label>
-          <div className="result">{formatNumber()}</div>
-          <label>Code</label>
-          <code>Intl.NumberFormat('{locale}').format('{number}');</code>
-
-          <div className="title">Format Currency</div>
-          <div className="row">
-            <div className="col field"><SelectBox label="Common Currencies" value={currency} onChange={setCurrency} options={COMMON_CURRENCIES}></SelectBox></div>
-            <div className="col field">
-              <label>Custom Currency</label>
-              <input type="text" value={currency} onChange={handleCurrencyChange}/>
-            </div>
-          </div>
-          <label>Result</label>
-          <div className="result">{formatCurrency()}</div>
-          <label>Code</label>
-          <code>Intl.NumberFormat('{locale}', &#123;style: 'currency', currency: '{currency}'&#125;).format('{number}');</code>
-          <div className="title">More Information</div>
-          <p>
-            Uses the Intl.NumberFormat API
-          </p>
-          <p>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat</a>
-          </p>
-
-          {/*<div className="title">Code</div>*/}
-          {/*<code>*/}
-          {/*  Intl.NumberFormat('{locale}').format('{number}');*/}
-          {/*  Intl.NumberFormat('{locale}', &#123;style: 'currency', currency: '{currency}'&#125;).format('{number}');*/}
-          {/*</code>*/}
+      <div className="card">
+        <div className="title">Format Number</div>
+        <div className="row">
+          <SelectBox label="Common Locales" value={locale} onChange={setLocale} options={COMMON_LOCALES}></SelectBox>
+          <TextField label="Custom Locale" value={locale} onChange={setLocale}></TextField>
+          <NumberField label="Number to format" value={number} onChange={setNumber}></NumberField>
         </div>
+        <Output value={formatNumber()}></Output>
+        <CodeSample value="Intl.NumberFormat('{locale}').format('{number}');"></CodeSample>
+
+        <div className="title">Format Currency</div>
+        <div className="row">
+          <SelectBox label="Common Currencies" value={currency} onChange={setCurrency} options={COMMON_CURRENCIES}></SelectBox>
+          <TextField label="Custom Currency" value={currency} onChange={setCurrency}></TextField>
+        </div>
+        <Output value={formatCurrency()}></Output>
+        <CodeSample value="Intl.NumberFormat('{locale}', &#123;style: 'currency', currency: '{currency}'&#125;).format('{number}');"></CodeSample>
+
+        <div className="title">Determine Locales from Format</div>
+        <div className="row">
+          <TextField label="Formatted Value" value={reverseText} onChange={setReverseText}></TextField>
+          <button onClick={reverseLocale}>Find Locales</button>
+        </div>
+        <Output value={reverseLocales}></Output>
+
+        <div className="title">More Information</div>
+        <p>
+          Uses the Intl.NumberFormat API
+        </p>
+        <p>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat</a>
+        </p>
       </div>
   );
 }
