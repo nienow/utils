@@ -15,6 +15,9 @@ function Locale() {
   const [currency, setCurrency] = useState('USD');
   const [reverseText, setReverseText] = useState('1,234.56');
   const [reverseLocales, setReverseLocales] = useState('');
+  const [reverseLocales2, setReverseLocales2] = useState('');
+  const [thousandSeparator, setThousandSeparator] = useState(',');
+  const [decimalSymbol, setDecimalSymbol] = useState('.');
 
   function formatNumber() {
     try {
@@ -39,7 +42,21 @@ function Locale() {
         return result === reverseText;
       } catch {}
     });
-    setReverseLocales(matches.join(', '));
+    setReverseLocales(matches.join(', ') || 'No Results');
+  }
+
+  function reverseLocaleBySymbols() {
+    const matches = COMMON_LOCALES.filter((locale: string) => {
+      try {
+        const result = new Intl.NumberFormat(locale).format(1234.56);
+        if (result.length === 8) {
+          return result[1] === thousandSeparator && result[5] === decimalSymbol;
+        } else if (result.length === 7) {
+          return false;
+        }
+      } catch {}
+    });
+    setReverseLocales2(matches.join(', ') || 'No Results');
   }
 
   return (
@@ -63,10 +80,18 @@ function Locale() {
 
         <div className="title">Determine Locales from Format</div>
         <div className="row">
-          <TextField label="Formatted Value" value={reverseText} onChange={setReverseText}></TextField>
+          <TextField label="Formatted Value" value={reverseText} onChange={setReverseText} onEnter={reverseLocale}></TextField>
           <button onClick={reverseLocale}>Find Locales</button>
         </div>
         <Output value={reverseLocales}></Output>
+
+        <div className="title">Determine Locales from Settings</div>
+        <div className="row">
+          <SelectBox label="Thousand Separator" value={thousandSeparator} onChange={setThousandSeparator} options={[',', '.', ' ', '`']}></SelectBox>
+          <SelectBox label="Decimal Symbol" value={decimalSymbol} onChange={setDecimalSymbol} options={['.', ',']}></SelectBox>
+          <button onClick={reverseLocaleBySymbols}>Find Locales</button>
+        </div>
+        <Output value={reverseLocales2}></Output>
 
         <div className="title">More Information</div>
         <p>

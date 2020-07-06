@@ -4,6 +4,7 @@ interface TextFieldProps {
 	label: string;
 	value: string;
 	onChange: (value: string) => void;
+	onEnter?: () => void;
 }
 
 function TextField(props: TextFieldProps) {
@@ -12,9 +13,15 @@ function TextField(props: TextFieldProps) {
 		props.onChange(target.value);
 	}
 
+	function handleKeyDown(event: any) {
+		if (props.onEnter && event.key === 'Enter') {
+			props.onEnter();
+		}
+	}
+
 	return <div className="field">
 		<label>{props.label}</label>
-		<input type="text" value={props.value} onChange={handleValueChange}/>
+		<input type="text" value={props.value} onChange={handleValueChange} onKeyDown={handleKeyDown}/>
 	</div>;
 }
 
