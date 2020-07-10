@@ -14,6 +14,7 @@ import {
 import Locale from '../utils/locale/Locale';
 import Home from './Home';
 import BitcoinAddress from '../utils/bit/BitcoinAddress';
+import LocaleList from '../utils/locale/locale-list/LocaleList';
 
 function App() {
   const [theme, setTheme] = useState('light');
@@ -34,6 +35,7 @@ function App() {
         <div className="nav__body">
           <Link className="nav__item" to="/">Home</Link>
           <Link className="nav__item" to="/locale">Number Formatting</Link>
+          <Link className="nav__item" to="/locales">Locale List</Link>
           <Link className="nav__item" to="/bit">Bitcoin Addresses</Link>
         </div>
       </div>
@@ -48,6 +50,7 @@ function App() {
         <div className="content">
           <Route exact path="/" component={Home}/>
           <Route path="/locale" component={Locale}/>
+          <Route path="/locales" component={LocaleList}/>
           <Route path="/bit" component={BitcoinAddress}/>
         </div>
       </div>

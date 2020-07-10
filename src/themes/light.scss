@@ -1,40 +1,44 @@
 .theme-light {
-	background-color: #ccc;
-	color: #444;
+  background-color: #ccc;
+  color: #444;
 
-	a {
-		color: #444;
-	}
+  a {
+    color: #444;
+  }
 
-	.header {
-		background-color: #aaa;
-		//color: #444;
-	}
+  .header {
+    background-color: #aaa;
+    //color: #444;
+  }
 
-	.nav__top {
-		background-color: #888;
-	}
+  .nav__top {
+    background-color: #888;
+  }
 
-	.nav__item:hover {
-		background-color: #bbb;
-	}
+  .nav__item:hover {
+    background-color: #bbb;
+  }
 
-	.card {
-		background-color: #eee;
-		box-shadow: 0px 2px 1px -1px rgba(255, 255, 255, 0.2), 0px 1px 1px 0px rgba(255, 255, 255, 0.14), 0px 1px 3px 0px rgba(255, 255, 255, 0.12);
-	}
+  .card {
+    background-color: #eee;
+    box-shadow: 0px 2px 1px -1px rgba(255, 255, 255, 0.2), 0px 1px 1px 0px rgba(255, 255, 255, 0.14), 0px 1px 3px 0px rgba(255, 255, 255, 0.12);
+  }
 
-	input, select {
-		color: #444;
-		border: 1px solid #ccc;
-	}
+  input, select {
+    color: #444;
+    border: 1px solid #ccc;
+  }
 
-	.result, code {
-		background-color: #fff;
-		border: 1px solid #ccc;
-	}
+  .result, code {
+    background-color: #fff;
+    border: 1px solid #ccc;
+  }
 
-	code {
-		color: #666;
-	}
+  code {
+    color: #666;
+  }
+
+  td {
+    border-color: #ccc;
+  }
 }
