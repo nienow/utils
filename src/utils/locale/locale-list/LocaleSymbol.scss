@@ -1,0 +1,25 @@
+.locale-symbol-card {
+  align-self: stretch;
+  margin: 0 5px;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.locale-symbol-card__symbol {
+  background-color: #eee;
+  font-size: 50px;
+}
+
+.locale-symbol-card__example {
+  font-size: 28px;
+}
+
+.locale-symbol-card__desc {
+  font-size: 16px;
+}
+
+.theme-light {
+  .locale-symbol-card {
+    background-color: #fafafa;
+  }
+}
